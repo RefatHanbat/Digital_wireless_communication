@@ -75,34 +75,20 @@ for i=1:length(zf_linear_awgn2)
     rayChan4_linear(:,i) = qamdemod(zf_linear_rayChan4(:,i),4);
 end
 
-function Xh = ZF(h,r)
 
-%r --- signal at the receiver
-% h--- impulse response of the channel 
-%Computing inverse impulse response
-
-gD=tf(h,1); % Gain of the channel
-
-f=1/gD; % taking inverse of the channel gain
-
-[num,den]=tfdata(f,'v'); % extracting numerator and denominator coefficients 
-
-%Zero forcing
-Xh=filter(num,den,r); % filtering 
-
-% Xh=Xh(1:end); %this done for technical reasons 
-end
 
 
 %H2 = comm.BPSKDemodulator;
 %% FEC Decoder
 %Linear Decoder
+
 for i=1:length(awgnD2_linear)
     awgn_linear_bpsk(:,i) = decode(awgnD2_linear(:,i),n,k);
     awgn_linear_4(:,i) = decode(awgnD4_linear(:,i),n,k);
     rayChan_linear_bpsk(:,i) = decode(rayChan2_linear(:,i),n,k);
     rayChan_linear_4(:,i) = decode(rayChan4_linear(:,i),n,k);
 end
+
 %% Deinterleaver
 % first take the transpose 
 awgn_linear_bpsk=awgn_linear_bpsk';
