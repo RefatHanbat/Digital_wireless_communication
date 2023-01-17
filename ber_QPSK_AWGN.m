@@ -56,5 +56,4 @@ ylabel('Bit Error Rate');
 legend('Theoretical', 'Simulated');
 title(['Probability of Bit Error for QPSK Modulation']);
 grid on;
-hold off;
-
+hold on;
