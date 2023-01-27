@@ -6,7 +6,7 @@ N=1e6; % Number of bits transmited
 SNRdB= 0:1:20; % SNR for simulation
 SNRlin=10.^(SNRdB/10);
 BER = zeros(1,length(SNRlin));% simulated BER
-%SER = zeros(1,length(SNRlin));% simulated SER
+
 
 b1 = rand(1,N) > 0.5;
 b2 = rand(1,N) > 0.5;
@@ -14,7 +14,7 @@ b2 = rand(1,N) > 0.5;
 % QPSK symbol mapping
 I = (2*b1) - 1;
 Q = (2*b2) - 1;
-S = I + 1j*Q; 
+S = I + j*Q; 
 
 N0 = 1./SNRlin; % Variance
 
@@ -38,14 +38,15 @@ for k = 1:length(SNRdB)
     Error_bit = sum(b1_error) + sum(b2_error); % Total bit error
     BER(k) = sum(Error_bit)/(2*N); % Simulated BER
     
+    
     % For SER calculation
     %error_symbol = or(b1_error, b2_error); % if bit in I or bit in Q either wrong than error
     %SER(k) = sum(error_symbol)/N;
     
 end
 
-BER_theo = 2*qfunc(sqrt(2*SNRlin)); % Theoretical BER 
-%SER_theo = 2*qfunc(sqrt(2*SNRlin)) - (qfunc(sqrt(2*SNRlin))).^2; % Theoretical SER
+BER_theo =2 * qfunc(sqrt(2*SNRlin)); % Theoretical BER 
+
 
 figure(1);
 semilogy(SNRdB, BER_theo,'r-')  
