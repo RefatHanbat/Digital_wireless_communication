@@ -1,4 +1,4 @@
-
+close all
 clear
 N = 10^6 % number of bits or symbols
 
