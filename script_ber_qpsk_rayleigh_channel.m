@@ -1,5 +1,6 @@
 close all
-clear
+clear all
+clc
 N = 10^6; % number of bits or symbols
 b1 = rand(1,N) > 0.5;
 b2 = rand(1,N) > 0.5;
@@ -7,15 +8,15 @@ b2 = rand(1,N) > 0.5;
 ip = rand(1,N)>0.5; % generating 0,1 with equal probability
 I = (2*b1) - 1;
 Q = (2*b2) - 1;
-S = I + j*Q;; % qpsk modulation 0 -> -1; 1 -> 0 
+S = I + 1i * Q; % qpsk modulation 0 -> -1; 1 -> 0 
 
  
-Eb_N0_dB = [-3:35]; % multiple Eb/N0 values
+Eb_N0_dB = -3:35; % multiple Eb/N0 values
 
 for ii = 1:length(Eb_N0_dB)
    
-   n = 1/sqrt(2)*[randn(1,N) + j*randn(1,N)]; % white gaussian noise, 0dB variance 
-   h = 1/sqrt(2)*[randn(1,N) + j*randn(1,N)]; % Rayleigh channel
+   n = 1/sqrt(2)*(randn(1,N) + 1i*randn(1,N)); % white gaussian noise, 0dB variance 
+   h = 1/sqrt(2)*(randn(1,N) + 1i*randn(1,N)); % Rayleigh channel
    
    % Channel and noise Noise addition
    y = h.*S + 10^(-Eb_N0_dB(ii)/20)*n; 
