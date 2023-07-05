@@ -24,6 +24,7 @@ for jj = 1:length(numRx)
             equalizedSignal = max(abs(channel) .* receivedSignal, [], 1);
         elseif jj == 2
             % Equal Gain Combining
+            %%receivedSignal = receivedSignal.*exp(-j*angle(channel));
             equalizedSignal = sum(receivedSignal, 1) / numRx(jj);
         else
             % Maximal Ratio Combining
